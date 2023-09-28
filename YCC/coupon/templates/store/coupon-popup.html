@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block head %}
+  {{ block.super }}
+  <meta name="robots" content="noindex">
+{% endblock %}
+
+{% block content %}
+  <div class="store-page">
+    <h1>{{ store.title }}</h1>
+    <h2>Category: {{ store.category.name }}</h2>
+    <p>Name: {{ store.name }}</p>
+    <p>Website: <a href="{{ store.external_link }}">{{ store.external_link }}</a></p>
+
+    <a href="{{ store.url }}" class="back-link">Back to Store Index</a>
+
+    <h2>Linked Coupons</h2>
+    <div class="coupon-list">
+      {% for coupon in store.linked_coupons %}
+      <div class="coupon-item">
+        <div class="coupon-image">
+          {% if coupon.featured_image %}
+            <img src="{{ coupon.featured_image.file.url }}" alt="{{ coupon.title }}">
+          {% endif %}
+        </div>
+        <div class="coupon-info">
+          <h3><a href="{{ coupon.url }}">{{ coupon.title }}</a></h3>
+          <p>Date: {{ coupon.date }}</p>
+          <p>Intro: {{ coupon.intro }}</p>
+          <div class="coupon-code">
+            <a href="{{ coupon.external_link }}" rel="sponsored nofollow" class="reveal-code" onclick="openPopup('{{ coupon.code }}', '{{ page.get_parent.url }}', {{ store.id }});">Reveal Coupon</a>
+          </div>
+          <!-- <a href="{{ coupon.external_link }}" target="_blank" rel="noopener noreferrer" class="discover-link">Discover Coupon</a> -->
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <a href="{{ page.get_parent.url }}" class="browse-link">Browse More Coupons</a>
+  </div>
+
+  <div id="coupon-popup" class="coupon-popup" style="display: block;">
+    <div class="coupon-content">
+      <span class="close-button" onclick="closePopup()">&times;</span>
+      <h3>Coupon Code</h3>
+      <p id="coupon-code-text"></p>
+      <div><a href="{{ coupon.external_link }}" rel="sponsored nofollow">Visit Website</a></div>
+    </div>
+  </div>
+
+  <script>
+    function openPopup(couponCode, currentUrl, storeId) {
+      var popupUrl = "/store/" + storeId + "/?code=" + encodeURIComponent(couponCode)
+      window.open(popupUrl, "_blank");
+    }
+
+    function closePopup() {
+      document.getElementById("coupon-popup").style.display = "none";
+    }
+
+    // Retrieve the coupon code, current URL, and store ID from the URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const couponCode = urlParams.get("code");
+    const currentUrl = urlParams.get("currentUrl");
+    const storeId = {{ store.id }};
+
+    // Display the coupon code in the popup
+    document.getElementById("coupon-code-text").innerText = couponCode;
+
+    // Update the href of the "Browse More Coupons" link with the current URL
+    document.querySelector(".browse-link").href = currentUrl;
+  </script>
+{% endblock %}

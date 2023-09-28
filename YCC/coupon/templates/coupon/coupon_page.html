@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ page.title }}</h1>
+  <p>Date: {{ page.date }}</p>
+  <p>Intro: {{ page.intro }}</p>
+  <p>Body: {{ page.body|safe }}</p>
+  <p>Link: {{ page.external_link }}</p>
+  <p>img url: <img src="{{ page.featured_image.file.url }}"></p>
+
+  {% for image in page.gallery_images.all %}
+    <img src="{{ image.image.url }}" alt="{{ image.caption }}">
+    <p>img url: {{ coupon.featured_image.url }}</p>
+    <p>{{ image.caption }}</p>
+  {% endfor %}
+
+  <a href="{{ page.store_link.url }}">Go to Store</a>
+{% endblock %}
