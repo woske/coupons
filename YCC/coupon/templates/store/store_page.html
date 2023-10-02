@@ -23,7 +23,7 @@
           <p>Date: {{ coupon.date }}</p>
           <p>Intro: {{ coupon.intro }}</p>
           <div class="coupon-code">
-            <a href="{{ coupon.external_link }}" rel="sponsored nofollow" class="reveal-code" onclick="openPopup('{{ coupon.code }}', '{{ page.url }}');">Reveal Coupon</a>
+            <a href="{{ coupon.external_link }}" rel="sponsored nofollow" class="reveal-code" onclick="openPopup('{{coupon.code}}', '{{coupon.title}}', '{{coupon.featured_image.file.url}}', '{{page.url}}', {{page.id}})">Reveal Coupon</a>
           </div>
           <!-- <a href="{{ coupon.external_link }}" target="_blank" rel="noopener noreferrer" class="discover-link">Discover Coupon</a> -->
         </div>
@@ -48,14 +48,9 @@
     // Assign the store ID to a JavaScript variable
     const storeId = {{ page.id }};
 
-    function revealCoupon(couponCode, couponUrl) {
-      const currentUrl = encodeURIComponent(window.location.href);
-      const popupUrl = `/store/${storeId}/?code=${encodeURIComponent(couponCode)}&url=${encodeURIComponent(couponUrl)}`;
-      window.open(popupUrl, "_blank");
-    }
+    function openPopup(couponCode, couponTitle, imageUrl, currentUrl, storeId) {
 
-    function openPopup(couponCode, currentUrl) {
-      const popupUrl = `/store/${storeId}/?code=${encodeURIComponent(couponCode)}`;
+      var popupUrl = "/store/" + storeId + "/?code=" + encodeURIComponent(couponCode) + "&title=" + encodeURIComponent(couponTitle) + "&image=" + encodeURIComponent(imageUrl);
       window.open(popupUrl, "_blank");
     }
 
