@@ -26,7 +26,7 @@ header {
 }
 
 nav {
-  margin: 0 170px;
+  margin: 0 15%;
 }
 
 header nav ul {
@@ -45,7 +45,11 @@ header nav ul li a {
 
 /* Style the main content area */
 main {
-  margin: 0 150px;
+  margin: 0 15%;
+}
+
+.first-letter::first-letter {
+  text-transform: capitalize;
 }
 
 /* Add a bit of spacing to the footer */
@@ -179,6 +183,7 @@ input[type="reset"]:hover {
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease-in-out;
+    min-height: 310px;
   }
   
   @media (max-width: 767px) {
@@ -209,18 +214,19 @@ input[type="reset"]:hover {
   }
   
   .reveal-code {
-    padding: 5px 10px;
-    background-color: #eaeaea;
-    color: #333;
-    text-decoration: none;
-    border-radius: 4px;
-    transition: background-color 0.3s ease-in-out;
-  }
-  
-  .reveal-code:hover {
-    background-color: #ccc;
+    position: absolute;
+    bottom: 10px; /* Position the button at the bottom */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center horizontally */
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
+    text-decoration: none;
   }
+
   
   .discover-link {
     display: inline-block;
