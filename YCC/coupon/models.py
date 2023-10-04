@@ -86,7 +86,8 @@ class Store(Page):
         default=None
     )
     external_link = models.URLField(default='')
-
+    description = RichTextField(blank=True)
+    
     # Add a field for template selection
     template = models.CharField(
         max_length=255,
@@ -96,12 +97,14 @@ class Store(Page):
         ],
         default='store/store_page.html'  # Set a default template
     )
+    
 
     content_panels = [
         FieldPanel('title'),
         FieldPanel('name'),
         FieldPanel('category'),
         FieldPanel('external_link'),
+        FieldPanel('description'),
         FieldPanel('template'),  # Include the template field in the admin panel
     ]
 

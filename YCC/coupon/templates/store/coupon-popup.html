@@ -7,8 +7,9 @@
 
 {% block content %}
   <div class="store-page">
-    <h1>{{ store.title }}</h1>
+    <h1>{{ store.title }} Coupon Codes <span id="current-month"></span> <span id="current-year"></span></h1>
     <h2>Category: {{ store.category.name }}</h2>
+    <p> {{store.description|safe}}</p>
     <p>Name: {{ store.name }}</p>
     <p>Website: <a href="{{ store.external_link }}">{{ store.external_link }}</a></p>
 
@@ -30,23 +31,14 @@
           <div class="coupon-code">
             <a href="{{ coupon.external_link }}" rel="sponsored nofollow" class="reveal-code" onclick="openPopup('{{ coupon.code }}', '{{coupon.title}}' , '{{coupon.featured_image.file.url}}', '{{ page.get_parent.url }}', {{ store.id }});">Reveal Coupon</a>
           </div>
-          <!-- <a href="{{ coupon.external_link }}" target="_blank" rel="noopener noreferrer" class="discover-link">Discover Coupon</a> -->
+      
         </div>
       </div>
       {% endfor %}
     </div>
 
-    <a href="{{ page.get_parent.url }}" class="browse-link">Browse More Coupons</a>
+    <!-- <a href="{{ page.get_parent.url }}" class="browse-link">Browse More Coupons</a> -->
   </div>
-
-  <!-- <div id="coupon-popup" class="coupon-popup" style="display: block;">
-    <div class="coupon-content">
-      <span class="close-button" onclick="closePopup()">&times;</span>
-      <h3>Coupon Code</h3>
-      <p id="coupon-code-text"></p>
-      <div><a href="{{ coupon.external_link }}" rel="sponsored nofollow">Visit Website</a></div>
-    </div>
-  </div> -->
   <div id="coupon-popup" class="coupon-popup" style="display: block;">
     <span class="close-button" onclick="closePopup()">&times;</span>
     <img id="coupon-code-img" class="logo">
@@ -110,4 +102,5 @@
       }
     }
   </script>
+  
 {% endblock %}

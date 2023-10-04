@@ -44,9 +44,6 @@ header nav ul li a {
 }
 
 /* Style the main content area */
-main {
-  margin: 0 15%;
-}
 
 .first-letter::first-letter {
   text-transform: capitalize;
@@ -97,12 +94,55 @@ body {
 }
 
 header {
-    background-color: #0066cc;
+  /* background: linear-gradient(to right, #0d4377, #1a490d); */
+  background: linear-gradient(to right, #031730,#114557, #132446);
 }
 
 header nav ul li a {
     color: #fff;
 }
+
+
+/* Add this CSS code to your existing styles */
+
+.banner-image-container {
+  position: relative;
+  overflow: hidden; /* Hide the overflow of the image */
+  height: 300px; /* Set the specific height you want to display */
+  max-width: 100%; /* Ensure the image remains full width */
+}
+
+.banner img {
+  width: 102%;
+    height: auto;
+    position: absolute;
+    bottom: -355px;
+    margin-left: -2px;
+}
+
+.banner-content {
+  position: absolute; /* Position the content absolutely */
+  top: 0; /* Position it at the top of the banner */
+  left: 0; /* Align it to the left edge of the banner */
+  width: 100%; /* Make it full width */
+  background-color: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background color */
+  color: #fff; /* Text color for the content */
+  padding: 20px; /* Add padding for spacing around the content */
+}
+
+.banner-content h1 {
+  font-size: 24px; /* Adjust the title font size */
+}
+
+.banner-content a {
+  color: #fff; /* Link color within the content */
+  text-decoration: underline; /* Add underline to links */
+}
+
+.banner-content a:hover {
+  text-decoration: none; /* Remove underline on hover for links */
+}
+
 
 button,
 input[type="submit"],
@@ -141,8 +181,9 @@ input[type="reset"]:hover {
 
 
 .store-page {
-    padding: 20px;
-  }
+  padding: 20px;
+  margin: 0 15%;
+}
   
   h1 {
     font-size: 24px;
@@ -213,9 +254,11 @@ input[type="reset"]:hover {
     margin-top: 10px;
   }
   
-  .reveal-code {
+  .coupon-info {
     position: absolute;
-    bottom: 10px; /* Position the button at the bottom */
+    bottom: 25px;
+}
+  .reveal-code {
     left: 50%; /* Center horizontally */
     transform: translateX(-50%); /* Center horizontally */
     padding: 10px 20px;
@@ -313,22 +356,6 @@ input[type="reset"]:hover {
     padding: 10px 20px;
     color: #7158fe;
     cursor: pointer;
-}
-.circle1, .circle2{
-    background: #f0fff3;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-
-}
-.circle1{
-    left: -25px;
-}
-.circle2{
-    right: -25px;
 }
   
   .coupon-content {
