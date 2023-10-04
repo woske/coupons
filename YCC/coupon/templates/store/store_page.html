@@ -19,6 +19,20 @@
       {{ page.description|safe }}
       <p>Name: {{ page.name }}</p>
       <p>Website: <a href="{{ page.external_link }}">{{ page.external_link }}</a></p>
+      {% for block in page.accordion %}
+
+      <div class="accordion-item">
+    
+        <h2>{{ block.value.title }}</h2>
+    
+        <div class="accordion-content">
+          {{ block.value.content }} 
+        </div>
+    
+      </div>
+    
+    {% endfor %}
+      
 
       <a href="{{ page.get_parent.url }}" class="back-link">Back to Store Index</a>
     </div>

@@ -9,6 +9,8 @@ from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.search import index
 from wagtail.images.models import Image
 from wagtail.images import widgets as wagtail_widgets
+from wagtail.fields import StreamField
+from wagtail.blocks import StructBlock, CharBlock, RichTextBlock
 
 from wagtail.snippets.models import register_snippet
 
@@ -87,6 +89,12 @@ class Store(Page):
     )
     external_link = models.URLField(default='')
     description = RichTextField(blank=True)
+    accordion = StreamField([
+        ('accordion', StructBlock([
+            ('title', CharBlock()),
+            ('content', RichTextBlock())
+        ]))
+    ], blank=True, use_json_field=True)
     
     # Add a field for template selection
     template = models.CharField(
@@ -106,6 +114,7 @@ class Store(Page):
         FieldPanel('external_link'),
         FieldPanel('description'),
         FieldPanel('template'),  # Include the template field in the admin panel
+        FieldPanel('accordion'),
     ]
 
     def get_template(self, request, *args, **kwargs):
