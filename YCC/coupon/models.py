@@ -15,10 +15,13 @@ from wagtail.blocks import StructBlock, CharBlock, RichTextBlock
 from wagtail.snippets.models import register_snippet
 
 
+
 class CouponIndexPage(Page):
     intro = RichTextField(blank=True)
+    index_page = models.BooleanField(default=True, help_text="Check this to allow indexing of the page.")
 
     content_panels = Page.content_panels + [
+        FieldPanel('index_page'),
         FieldPanel('intro')
     ]
 
@@ -58,8 +61,10 @@ class Category(models.Model):
 
 class StoreIndexPage(Page):
     intro = RichTextField(blank=True)
+    index_page = models.BooleanField(default=True, help_text="Check this to allow indexing of the page.")
 
     content_panels = Page.content_panels + [
+        FieldPanel('index_page'),
         FieldPanel('intro')
     ]
 
@@ -95,6 +100,7 @@ class Store(Page):
             ('content', RichTextBlock())
         ]))
     ], blank=True, use_json_field=True)
+    index_page = models.BooleanField(default=True, help_text="Check this to allow indexing of the page.")
     
     # Add a field for template selection
     template = models.CharField(
@@ -115,6 +121,7 @@ class Store(Page):
         FieldPanel('description'),
         FieldPanel('template'),  # Include the template field in the admin panel
         FieldPanel('accordion'),
+        FieldPanel('index_page'),
     ]
 
     def get_template(self, request, *args, **kwargs):
@@ -193,6 +200,7 @@ class Coupon(Page):
         index.SearchField('body'),
     ]
 
+    index_page = models.BooleanField(default=True, help_text="Check this to allow indexing of the page.")
     content_panels = Page.content_panels + [
         FieldPanel('date'),
         FieldPanel('intro'),
@@ -202,6 +210,8 @@ class Coupon(Page):
         FieldPanel('external_link'),
         FieldPanel('code'),
         FieldPanel('featured_image', widget=wagtail_widgets.AdminImageChooser),
+        FieldPanel('index_page'),
+        
     ]
 
     template = "coupon/coupon_page.html"
@@ -211,5 +221,7 @@ class Coupon(Page):
             if self.store_link:
                 self.external_link = self.store_link.external_link
         super().save(*args, **kwargs)
+
     
+        
 

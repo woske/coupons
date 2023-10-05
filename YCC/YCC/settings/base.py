@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sitemaps",
     "coupon",
 ]
 
@@ -152,7 +153,7 @@ MEDIA_URL = "/media/"
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = "YCC"
+WAGTAIL_SITE_NAME = "CBDealSaver"
 
 # Search
 # https://docs.wagtail.org/en/stable/topics/search/backends.html

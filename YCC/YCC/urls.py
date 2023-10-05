@@ -9,6 +9,7 @@ from wagtail.documents import urls as wagtaildocs_urls
 from search import views as search_views
 
 from coupon.views import coupon_popup_view
+from wagtail.contrib.sitemaps.views import sitemap
 
 urlpatterns = [
     path("django-admin/", admin.site.urls),
@@ -16,6 +17,7 @@ urlpatterns = [
     path("documents/", include(wagtaildocs_urls)),
     path("search/", search_views.search, name="search"),
     path('store/<int:store_id>/', coupon_popup_view, name='coupon-popup'),
+    path('sitemap.xml', sitemap),
 ]
 
 
