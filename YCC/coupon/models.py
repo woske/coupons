@@ -223,5 +223,65 @@ class Coupon(Page):
         super().save(*args, **kwargs)
 
     
-        
+    class BlogIndexPage(Page):
+        intro = RichTextField(blank=True)
+        search_fields = Page.search_fields + [
+            index.SearchField('intro'),
+        ]
+
+        content_panels = Page.content_panels + [
+            FieldPanel('intro'),
+        ]
+
+        template = "blog/blog_index_page.html"
+    
+    class BlogPostPage(Page):
+        intro = RichTextField(blank=True)
+        body = RichTextField()
+        index_page = models.BooleanField(default=True, help_text="Check this to allow indexing of the page.")
+        accordion = StreamField([
+            ('accordion', StructBlock([
+                ('title', CharBlock()),
+                ('content', RichTextBlock())
+            ]))
+        ], blank=True, use_json_field=True)
+
+        search_fields = Page.search_fields + [
+            index.SearchField('intro'),
+            index.SearchField('body'),
+        ]
+
+        content_panels = Page.content_panels + [
+            FieldPanel('intro'),
+            FieldPanel('body'),
+            FieldPanel('index_page'),
+            FieldPanel('accordion'),
+        ]
+
+        template = "blog/blog_post_page.html"
+
+    class StandardPage(Page):
+        intro = RichTextField(blank=True)
+        body = RichTextField()
+        index_page = models.BooleanField(default=True, help_text="Check this to allow indexing of the page.")
+        accordion = StreamField([
+            ('accordion', StructBlock([
+                ('title', CharBlock()),
+                ('content', RichTextBlock())
+            ]))
+        ], blank=True, use_json_field=True)
+
+        search_fields = Page.search_fields + [
+            index.SearchField('intro'),
+            index.SearchField('body'),
+        ]
+
+        content_panels = Page.content_panels + [
+            FieldPanel('intro'),
+            FieldPanel('body'),
+            FieldPanel('index_page'),
+            FieldPanel('accordion'),
+        ]
+
+        template = "pages/page.html"
 

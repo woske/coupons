@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="store-page">
+  
     <h1>{{ page.title }}</h1>
     <h2>Category: {{ page.category.name }}</h2>
     <p>Name: {{ page.name }}</p>
@@ -33,7 +33,7 @@
     </div>
 
     <a href="{{ page.get_parent.url }}" class="browse-link">Browse More Coupons</a>
-  </div>
+  
 
   <div id="coupon-popup" class="coupon-popup">
     <div class="coupon-content">

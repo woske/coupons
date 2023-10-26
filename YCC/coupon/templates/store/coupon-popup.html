@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-  <div class="store-page">
+  
     <h1>{{ store.title }} Coupon Codes <span id="current-month"></span> <span id="current-year"></span></h1>
     <h2>Category: {{ store.category.name }}</h2>
     <p> {{store.description|safe}}</p>
@@ -38,7 +38,7 @@
     </div>
 
     <!-- <a href="{{ page.get_parent.url }}" class="browse-link">Browse More Coupons</a> -->
-  </div>
+  
   <div id="coupon-popup" class="coupon-popup" style="display: block;">
     <span class="close-button" onclick="closePopup()">&times;</span>
     <img id="coupon-code-img" class="logo">
@@ -54,6 +54,26 @@
 </div>
 
   <script>
+        var cpnBtn = document.getElementById("cpnBtn");
+
+        cpnBtn.onclick = function() {
+          const couponCodeText = document.getElementById("coupon-code-text");
+          if (couponCodeText) {
+            // Copy the coupon code text to the clipboard
+            const textToCopy = couponCodeText.innerText;
+            navigator.clipboard.writeText(textToCopy);
+
+            // Update the button text to indicate success
+            cpnBtn.innerHTML = "COPIED";
+
+            // Reset the button text after a delay
+            setTimeout(function() {
+              cpnBtn.innerHTML = "COPY CODE";
+            }, 3000);
+          }
+        }
+
+
     function openPopup(couponCode, couponTitle, imageUrl, storeId, currentUrl) {
       var popupUrl = "/store/" + currentUrl + "/?code=" + encodeURIComponent(couponCode) + "&title=" + encodeURIComponent(couponTitle) + "&image=" + encodeURIComponent(imageUrl);
       window.open(popupUrl, "_blank");
@@ -83,24 +103,6 @@
     // Update the href of the "Browse More Coupons" link with the current URL
     document.querySelector(".browse-link").href = currentUrl;
 
-    var cpnBtn = document.getElementById("cpnBtn");
-
-    cpnBtn.onclick = function() {
-      const couponCodeText = document.getElementById("coupon-code-text");
-      if (couponCodeText) {
-        // Copy the coupon code text to the clipboard
-        const textToCopy = couponCodeText.innerText;
-        navigator.clipboard.writeText(textToCopy);
-
-        // Update the button text to indicate success
-        cpnBtn.innerHTML = "COPIED";
-
-        // Reset the button text after a delay
-        setTimeout(function() {
-          cpnBtn.innerHTML = "COPY CODE";
-        }, 3000);
-      }
-    }
   </script>
   
 {% endblock %}
