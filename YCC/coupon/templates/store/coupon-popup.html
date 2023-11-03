@@ -7,13 +7,15 @@
 
 {% block content %}
   
-    <h1>{{ store.title }} Coupon Codes <span id="current-month"></span> <span id="current-year"></span></h1>
-    <h2>Category: {{ store.category.name }}</h2>
-    <p> {{store.description|safe}}</p>
-    <p>Name: {{ store.name }}</p>
-    <p>Website: <a href="{{ store.external_link }}">{{ store.external_link }}</a></p>
+    <div class="intro_store">
+      <h1>{{ store.title }} Coupon Codes <span id="current-month"></span> <span id="current-year"></span></h1>
+      <h2>Category: {{ store.category.name }}</h2>
+      <p> {{store.description|safe}}</p>
+      <p>Name: {{ store.name }}</p>
+      <p>Website: <a href="{{ store.external_link }}">{{ store.external_link }}</a></p>
 
-    <a href="/all-stores/" class="back-link">Back to Store Index</a>
+      <p><a href="/all-stores/" class="back-link">Back to Store Index</a></p>
+    </div>
 
     <h2>Linked Coupons</h2>
     <div class="coupon-list">
@@ -26,10 +28,10 @@
         </div>
         <div class="coupon-info">
           <h3 class="first-letter">{{ coupon.title }}</h3>
-          <p>Date: {{ coupon.date }}</p>
+          <!-- <p>Date: {{ coupon.date }}</p> -->
           <p>Intro: {{ coupon.intro }}</p>
           <div class="coupon-code">
-            <a href="{{ coupon.external_link }}" rel="sponsored nofollow" class="reveal-code" onclick="openPopup('{{ coupon.code }}', '{{coupon.title}}' , '{{coupon.featured_image.file.url}}', '{{ page.get_parent.url }}', {{ store.id }});">Reveal Coupon</a>
+            <a href="{{ coupon.external_link }}" rel="sponsored nofollow" class="reveal-code" onclick="openPopup('{{ coupon.code }}', '{{coupon.title}}' , '{{coupon.featured_image.file.url}}', '{{ page.get_parent.url }}', '{{coupon.body}}', {{ store.id }});">Reveal Coupon</a>
           </div>
       
         </div>
@@ -39,18 +41,29 @@
 
     <!-- <a href="{{ page.get_parent.url }}" class="browse-link">Browse More Coupons</a> -->
   
-  <div id="coupon-popup" class="coupon-popup" style="display: block;">
-    <span class="close-button" onclick="closePopup()">&times;</span>
-    <img id="coupon-code-img" class="logo">
-    <h3 id="coupon-code-title">{{ title }}</h3>
-    <di class="coupon-row">
-        <span id="coupon-code-text"></span>
-        <span id="cpnBtn">Copy Code</span>
-    </di>
-    <p>Valid Till: 20Dec, 2021</p>
+  <div id="coupon-popup" class="coupon-popup coupon-container" style="display: flex;flex-direction: column;padding-left: 0px;padding-right: 0px;">
+      <div class="coupon-section coupon-section-blue">
+        <span class="close-button" onclick="closePopup()">&times;</span>
+        <h2 class="coupon_intro">Here is your coupon code:</h2>
+        <div class="coupon-row">
+          <span id="coupon-code-text"></span>
+          <span id="cpnBtn">Copy Code</span>
+        </div>
+      </div>
+      <div class="button_middle_popup">
+        <button id="go-to-website-btn">Go to Website</button>
+      </div>  
+      <div class="coupon-section coupon-section-white">
+        <img id="coupon-code-img" class="logo">
+        <div class="coupon_popup_details">
+          <h3 id="coupon-code-title">{{ title }}</h3>
+          <h3 id="coupon-code-body"></h3>
+        </div>
+      </div>
+    </div>
+    <!-- <p>Valid Till: 20Dec, 2021</p> -->
     <!-- <div class="circle1"></div>
     <div class="circle2"></div> -->
-  </div>
 </div>
 
   <script>
@@ -68,14 +81,14 @@
 
             // Reset the button text after a delay
             setTimeout(function() {
-              cpnBtn.innerHTML = "COPY CODE";
-            }, 3000);
+              cpnBtn.innerHTML = "Copy Code";
+            }, 10000);
           }
         }
 
 
-    function openPopup(couponCode, couponTitle, imageUrl, storeId, currentUrl) {
-      var popupUrl = "/store/" + currentUrl + "/?code=" + encodeURIComponent(couponCode) + "&title=" + encodeURIComponent(couponTitle) + "&image=" + encodeURIComponent(imageUrl);
+    function openPopup(couponCode, couponTitle, imageUrl, storeId, couponBody, currentUrl) {
+      var popupUrl = "/store/" + currentUrl + "/?code=" + encodeURIComponent(couponCode) + "&title=" + encodeURIComponent(couponTitle) + "&body=" + encodeURIComponent(couponBody) +"&image=" + encodeURIComponent(imageUrl);
       window.open(popupUrl, "_blank");
     }
 
@@ -89,6 +102,7 @@
     const currentUrl = urlParams.get("currentUrl");
     const storeId = {{ store.id }};
     const title = urlParams.get("title"); 
+    const body = urlParams.get("body"); 
     const imageUrl = urlParams.get("image");
 
     // Display the coupon code in the popup
@@ -96,6 +110,17 @@
 
     // Display the coupon title in the popup
     document.getElementById("coupon-code-title").innerText = title;
+
+    // Display the coupon body  in the popup
+    function stripHtml(html) {
+      var temporalElement = document.createElement("div");
+      temporalElement.innerHTML = html;
+      return temporalElement.textContent || temporalElement.innerText;
+    }
+
+    // Use the stripHtml function to remove HTML tags and set the coupon body
+    document.getElementById("coupon-code-body").innerText = stripHtml(body);
+
         
     // Display the coupon img in the popup
     document.getElementById("coupon-code-img").src = imageUrl;

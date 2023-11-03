@@ -11,7 +11,7 @@ from wagtail.images.models import Image
 from wagtail.images import widgets as wagtail_widgets
 from wagtail.fields import StreamField
 from wagtail.blocks import StructBlock, CharBlock, RichTextBlock
-
+from django.contrib.sitemaps import Sitemap
 from wagtail.snippets.models import register_snippet
 
 
@@ -223,65 +223,84 @@ class Coupon(Page):
         super().save(*args, **kwargs)
 
     
-    class BlogIndexPage(Page):
-        intro = RichTextField(blank=True)
-        search_fields = Page.search_fields + [
-            index.SearchField('intro'),
-        ]
+class BlogIndexPage(Page):
+    intro = RichTextField(blank=True)
+    search_fields = Page.search_fields + [
+        index.SearchField('intro'),
+    ]
 
-        content_panels = Page.content_panels + [
-            FieldPanel('intro'),
-        ]
+    content_panels = Page.content_panels + [
+        FieldPanel('intro'),
+    ]
 
-        template = "blog/blog_index_page.html"
+    template = "blog/blog_index_page.html"
     
-    class BlogPostPage(Page):
-        intro = RichTextField(blank=True)
-        body = RichTextField()
-        index_page = models.BooleanField(default=True, help_text="Check this to allow indexing of the page.")
-        accordion = StreamField([
-            ('accordion', StructBlock([
-                ('title', CharBlock()),
-                ('content', RichTextBlock())
-            ]))
-        ], blank=True, use_json_field=True)
+class BlogPostPage(Page):
+    intro = RichTextField(blank=True)
+    body = RichTextField()
+    index_page = models.BooleanField(default=True, help_text="Check this to allow indexing of the page.")
+    accordion = StreamField([
+        ('accordion', StructBlock([
+            ('title', CharBlock()),
+            ('content', RichTextBlock())
+        ]))
+    ], blank=True, use_json_field=True)
 
-        search_fields = Page.search_fields + [
-            index.SearchField('intro'),
-            index.SearchField('body'),
-        ]
+    search_fields = Page.search_fields + [
+        index.SearchField('intro'),
+        index.SearchField('body'),
+    ]
 
-        content_panels = Page.content_panels + [
-            FieldPanel('intro'),
-            FieldPanel('body'),
-            FieldPanel('index_page'),
-            FieldPanel('accordion'),
-        ]
+    content_panels = Page.content_panels + [
+        FieldPanel('intro'),
+        FieldPanel('body'),
+        FieldPanel('index_page'),
+        FieldPanel('accordion'),
+    ]
 
-        template = "blog/blog_post_page.html"
+    template = "blog/blog_post_page.html"
 
-    class StandardPage(Page):
-        intro = RichTextField(blank=True)
-        body = RichTextField()
-        index_page = models.BooleanField(default=True, help_text="Check this to allow indexing of the page.")
-        accordion = StreamField([
-            ('accordion', StructBlock([
-                ('title', CharBlock()),
-                ('content', RichTextBlock())
-            ]))
-        ], blank=True, use_json_field=True)
+class StandardPage(Page):
+    intro = RichTextField(blank=True)
+    body = RichTextField()
+    index_page = models.BooleanField(default=True, help_text="Check this to allow indexing of the page.")
+    accordion = StreamField([
+        ('accordion', StructBlock([
+            ('title', CharBlock()),
+            ('content', RichTextBlock())
+        ]))
+    ], blank=True, use_json_field=True)
 
-        search_fields = Page.search_fields + [
-            index.SearchField('intro'),
-            index.SearchField('body'),
-        ]
+    search_fields = Page.search_fields + [
+        index.SearchField('intro'),
+        index.SearchField('body'),
+    ]
 
-        content_panels = Page.content_panels + [
-            FieldPanel('intro'),
-            FieldPanel('body'),
-            FieldPanel('index_page'),
-            FieldPanel('accordion'),
-        ]
+    content_panels = Page.content_panels + [
+        FieldPanel('intro'),
+        FieldPanel('body'),
+        FieldPanel('index_page'),
+        FieldPanel('accordion'),
+    ]
 
-        template = "pages/page.html"
+    template = "pages/page.html"
 
+# class CustomSitemap(Sitemap):
+#     changefreq = "weekly"
+#     priority = 0.5
+
+#     def items(self):
+#         # Define the pages you want to include in the sitemap based on the index_page field
+#         pages = []
+
+#         # Add pages from your models with the index_page field
+#         pages += Coupon.objects.filter(index_page=True)
+#         pages += Store.objects.filter(index_page=True)
+#         pages += BlogPostPage.objects.filter(index_page=True)
+#         pages += StandardPage.objects.filter(index_page=True)
+
+#         return pages
+
+#     def lastmod(self, obj):
+#         # Define how to get the last modification date for each page (if applicable)
+#         return obj.latest_revision_created_at
