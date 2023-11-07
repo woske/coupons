@@ -50,9 +50,15 @@
           <h3 class="first-letter">{{ coupon.title }}</h3>
           <!-- <p>Date: {{ coupon.date }}</p> -->
           <p>Intro: {{ coupon.intro }}</p>
-          <div class="coupon-code">
-            <a href="{{ coupon.external_link }}" rel="sponsored nofollow" class="reveal-code" onclick="openPopup('{{coupon.code}}', '{{coupon.title}}', '{{coupon.featured_image.file.url}}', '{{page.url}}', '{{coupon.body}}', {{page.id}})">Reveal Coupon</a>
+          <div class="coupon onhover">
+            <div class="code">{{ coupon.code }}</div>
+            <div class="mask">
+              <a href="{{ coupon.external_link }}" rel="sponsored nofollow" class="reveal-code" onclick="openPopup('{{coupon.code}}', '{{coupon.title}}', '{{coupon.featured_image.file.url}}', '{{page.url}}', '{{coupon.body}}', {{page.id}})">Reveal Coupon</a>
+            </div>
           </div>
+          <!-- <div class="coupon-code">
+            <a href="{{ coupon.external_link }}" rel="sponsored nofollow" class="reveal-code" onclick="openPopup('{{coupon.code}}', '{{coupon.title}}', '{{coupon.featured_image.file.url}}', '{{page.url}}', '{{coupon.body}}', {{page.id}})">Reveal Coupon</a>
+          </div> -->
           <!-- <a href="{{ coupon.external_link }}" target="_blank" rel="noopener noreferrer" class="discover-link">Discover Coupon</a> -->
         </div>
       </div>
@@ -86,6 +92,12 @@
       document.getElementById("coupon-popup").style.display = "none";
     }
 
+    var el;
+
+    document.addEventListener("click", function(event) {
+      el = event.target.closest('.coupon.onclick');
+      el && el.classList.toggle('active');
+    });
   </script>
   
   

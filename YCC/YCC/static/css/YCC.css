@@ -272,12 +272,12 @@ input[type="reset"]:hover {
     left: 50%; /* Center horizontally */
     transform: translateX(-50%); /* Center horizontally */
     padding: 10px 20px;
-    background-color: #007bff;
+    /* background-color: #007bff; */
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    text-decoration: none;
+    text-decoration: none!important;
   }
 
   
@@ -418,4 +418,58 @@ input[type="reset"]:hover {
   margin-left: 10px;
   justify-content: center;
   align-items: flex-start;
+}
+
+.background_opac_coupon {
+  display: none;
+  top: 0;
+  bottom: 0;
+  position: fixed;
+  right: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.5;
+}
+
+.coupon {
+  position: relative;
+  font-family: sans-serif;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.coupon .code {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  border: 2px dashed green;
+  color: green;
+  font-weight: 500;
+  border-radius: 6px;
+  padding: 6px 8px;
+  user-select: all;
+}
+
+.coupon .mask {
+  position: relative;
+  z-index: 1;
+  background: green;
+  color: white;
+  border-radius: 6px;
+  padding: 6px 8px;
+  transition: .3s;
+  user-select: none;
+}
+
+.coupon.onhover:hover .mask,
+.coupon.onclick.active .mask {
+  transform: translateX(-10%);
+}
+
+.coupon.onhover:hover .mask.bottom,
+.coupon.onclick.active .mask.bottom {
+  transform: translateY(10%);
 }

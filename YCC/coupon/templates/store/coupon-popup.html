@@ -30,8 +30,11 @@
           <h3 class="first-letter">{{ coupon.title }}</h3>
           <!-- <p>Date: {{ coupon.date }}</p> -->
           <p>Intro: {{ coupon.intro }}</p>
-          <div class="coupon-code">
+          <div class="coupon onhover">
+            <div class="code">{{ coupon.code }}</div>
+            <div class="mask">
             <a href="{{ coupon.external_link }}" rel="sponsored nofollow" class="reveal-code" onclick="openPopup('{{ coupon.code }}', '{{coupon.title}}' , '{{coupon.featured_image.file.url}}', '{{ page.get_parent.url }}', '{{coupon.body}}', {{ store.id }});">Reveal Coupon</a>
+            </div>
           </div>
       
         </div>
@@ -40,7 +43,7 @@
     </div>
 
     <!-- <a href="{{ page.get_parent.url }}" class="browse-link">Browse More Coupons</a> -->
-  
+  <div id="background_opac_coupon" class="background_opac_coupon" style="display: flex"></div>
   <div id="coupon-popup" class="coupon-popup coupon-container" style="display: flex;flex-direction: column;padding-left: 0px;padding-right: 0px;">
       <div class="coupon-section coupon-section-blue">
         <span class="close-button" onclick="closePopup()">&times;</span>
@@ -94,6 +97,7 @@
 
     function closePopup() {
       document.getElementById("coupon-popup").style.display = "none";
+      document.getElementById("background_opac_coupon").style.display = "none";
     }
 
     // Retrieve the coupon code, current URL, and store ID from the URL parameters
