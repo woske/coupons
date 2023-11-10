@@ -225,7 +225,7 @@ input[type="reset"]:hover {
   
   .coupon-item {
     position: relative;
-    width: calc(33% - 100px);
+    width: calc(28% );
     border: 1px solid #ccc;
     padding: 20px;
     display: flex;
@@ -242,22 +242,25 @@ input[type="reset"]:hover {
       width: calc(100% - 20px);
     }
   }
-  
+  .coupon-image {
+    height: 40%;
+}
   .coupon-image img {
     max-width: 100%;
-    height: auto;
+    height: 100%;
     margin-bottom: 10px;
-  }
+}
   
   .coupon-info h3 {
     font-size: 18px;
     margin-top: 0;
     margin-bottom: 5px;
+    
   }
   
   .coupon-info p {
     font-size: 14px;
-    margin: 0;
+    margin: 0 0 10px 0;
   }
   
   .coupon-code {
@@ -267,6 +270,7 @@ input[type="reset"]:hover {
   .coupon-info {
     position: absolute;
     bottom: 25px;
+    width: 85%;
 }
   .reveal-code {
     left: 50%; /* Center horizontally */
@@ -316,7 +320,7 @@ input[type="reset"]:hover {
   .coupon-popup {
     display: none;
     /* background: linear-gradient(135deg, #7158fe, #9d4de6); */
-    background: linear-gradient( to top, #ffffff 0%, #ffffff 50%, #7757fb 50%, #8c51ef 100%);
+    background: linear-gradient( to top, #ffffff 0%, #ffffff 50%, #051c34 50%, #104456 100%);
     color: #fff;
     text-align: center;
     padding: 40px 80px;
@@ -409,7 +413,15 @@ input[type="reset"]:hover {
 }
 
 .button_middle_popup {
-  background: linear-gradient( to top, #ffffff 0%, #ffffff 50%, #7957fa 50%, #7956f9 100%);
+  background: linear-gradient( to top, #ffffff 0%, #ffffff 50%, #062037 50%, #062038 100%);
+}
+
+button#go-to-website-btn {
+  background-color: #008080;
+}
+
+button#go-to-website-btn:hover {
+  background-color: #FFA500;
 }
 
 .coupon_popup_details{
@@ -444,9 +456,9 @@ input[type="reset"]:hover {
   left: 0;
   right: 0;
   bottom: 0;
-  text-align: center;
-  border: 2px dashed green;
-  color: green;
+  text-align: right;
+  border: 2px dashed #008080;
+  color: #008080;
   font-weight: 500;
   border-radius: 6px;
   padding: 6px 8px;
@@ -455,21 +467,30 @@ input[type="reset"]:hover {
 
 .coupon .mask {
   position: relative;
-  z-index: 1;
-  background: green;
+  z-index: 0;
+  background: #008080;
   color: white;
   border-radius: 6px;
   padding: 6px 8px;
   transition: .3s;
   user-select: none;
+  margin-right: 15px;
 }
 
 .coupon.onhover:hover .mask,
 .coupon.onclick.active .mask {
-  transform: translateX(-10%);
+  transform: translateX(-5%);
 }
 
 .coupon.onhover:hover .mask.bottom,
 .coupon.onclick.active .mask.bottom {
-  transform: translateY(10%);
+  transform: translateY(5%);
+}
+
+.intro_store {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-content: center;
+  text-align: center;
 }

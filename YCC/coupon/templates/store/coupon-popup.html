@@ -8,13 +8,12 @@
 {% block content %}
   
     <div class="intro_store">
-      <h1>{{ store.title }} Coupon Codes <span id="current-month"></span> <span id="current-year"></span></h1>
+      <h1>{{ store.title }} Coupon Codes - <span id="current-month"></span> <span id="current-year"></span></h1>
       <h2>Category: {{ store.category.name }}</h2>
       <p> {{store.description|safe}}</p>
       <p>Name: {{ store.name }}</p>
       <p>Website: <a href="{{ store.external_link }}">{{ store.external_link }}</a></p>
 
-      <p><a href="/all-stores/" class="back-link">Back to Store Index</a></p>
     </div>
 
     <h2>Linked Coupons</h2>
@@ -24,6 +23,8 @@
         <div class="coupon-image">
           {% if coupon.featured_image %}
             <img src="{{ coupon.featured_image.file.url }}" alt="{{ coupon.title }}">
+          {% elif coupon.store_link.specific.logo %}
+          <img src="{{ store.logo.file.url }}" alt="{{ store.title }}">
           {% endif %}
         </div>
         <div class="coupon-info">
@@ -33,8 +34,12 @@
           <div class="coupon onhover">
             <div class="code">{{ coupon.code }}</div>
             <div class="mask">
+            {% if coupon.featured_image %}
             <a href="{{ coupon.external_link }}" rel="sponsored nofollow" class="reveal-code" onclick="openPopup('{{ coupon.code }}', '{{coupon.title}}' , '{{coupon.featured_image.file.url}}', '{{ page.get_parent.url }}', '{{coupon.body}}', {{ store.id }});">Reveal Coupon</a>
-            </div>
+            {% elif coupon.store_link.specific.logo %}  
+            <a href="{{ coupon.external_link }}" rel="sponsored nofollow" class="reveal-code" onclick="openPopup('{{ coupon.code }}', '{{coupon.title}}' , '{{store.logo.file.url}}', '{{ page.get_parent.url }}', '{{coupon.body}}', {{ store.id }});">Reveal Coupon</a>
+            {% endif %}
+          </div>
           </div>
       
         </div>
@@ -78,13 +83,17 @@
             // Copy the coupon code text to the clipboard
             const textToCopy = couponCodeText.innerText;
             navigator.clipboard.writeText(textToCopy);
-
+          
             // Update the button text to indicate success
             cpnBtn.innerHTML = "COPIED";
+            cpnBtn.style.backgroundColor = "#FFA500";
+            cpnBtn.style.color = "#fff";
 
             // Reset the button text after a delay
             setTimeout(function() {
               cpnBtn.innerHTML = "Copy Code";
+              cpnBtn.style.backgroundColor = ""; // Reset background color
+              cpnBtn.style.color = ""; // Reset font color to default
             }, 10000);
           }
         }

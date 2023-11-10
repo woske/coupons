@@ -101,6 +101,15 @@ class Store(Page):
         ]))
     ], blank=True, use_json_field=True)
     index_page = models.BooleanField(default=True, help_text="Check this to allow indexing of the page.")
+
+    logo = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="Upload the store logo image."
+    )
     
     # Add a field for template selection
     template = models.CharField(
@@ -121,6 +130,7 @@ class Store(Page):
         FieldPanel('description'),
         FieldPanel('template'),  # Include the template field in the admin panel
         FieldPanel('accordion'),
+        FieldPanel('logo'),
         FieldPanel('index_page'),
     ]
 
@@ -184,7 +194,8 @@ class Coupon(Page):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name='+',
+        help_text="Upload the coupon image. If not provided, the store image will be used as default."
     )
     code = models.CharField(max_length=50, blank=True)
 
@@ -217,10 +228,15 @@ class Coupon(Page):
     template = "coupon/coupon_page.html"
 
     def save(self, *args, **kwargs):
-        if not self.external_link:
-            if self.store_link:
-                self.external_link = self.store_link.external_link
-        super().save(*args, **kwargs)
+            if not self.external_link:
+                if self.store_link:
+                    # Set the coupon image to the store image if coupon image is not provided
+                    if not self.featured_image and hasattr(self.store_link.specific, 'logo') and self.store_link.specific.logo:
+                        self.featured_image = self.store_link.specific.logo
+
+                    self.external_link = self.store_link.specific.external_link
+            super().save(*args, **kwargs)
+
 
     
 class BlogIndexPage(Page):

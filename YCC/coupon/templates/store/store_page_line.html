@@ -16,6 +16,8 @@
         <div class="coupon-image">
           {% if coupon.featured_image %}
             <img src="{{ coupon.featured_image.file.url }}" alt="{{ coupon.title }}">
+          {% elif coupon.store_link.specific.logo %}
+            <img src="{{ store.logo.file.url }}" alt="{{ store.title }}">
           {% endif %}
         </div>
         <div class="coupon-info">

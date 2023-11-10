@@ -14,7 +14,7 @@
 
   
     <div class="intro_store">
-      <h1>{{ page.title }} Coupon Codes <span id="current-month"></span> <span id="current-year"></span></h1>
+      <h1>{{ page.title }} Coupon Codes - <span id="current-month"></span> <span id="current-year"></span></h1>
       <h2>Category: {{ page.category.name }}</h2>
       {{ page.description|safe }}
       <p>Name: {{ page.name }}</p>
@@ -34,7 +34,7 @@
     {% endfor %}
       
 
-      <a href="{{ page.get_parent.url }}" class="back-link">Back to Store Index</a>
+
     </div>
 
     <h2>Linked Coupons</h2>
@@ -44,6 +44,8 @@
         <div class="coupon-image">
           {% if coupon.featured_image %}
             <img src="{{ coupon.featured_image.file.url }}" alt="{{ coupon.title }}">
+          {% elif coupon.store_link.specific.logo %}
+            <img src="{{ page.logo.file.url }}" alt="{{ page.title }}">
           {% endif %}
         </div>
         <div class="coupon-info">
@@ -53,7 +55,11 @@
           <div class="coupon onhover">
             <div class="code">{{ coupon.code }}</div>
             <div class="mask">
+              {% if coupon.featured_image %}
               <a href="{{ coupon.external_link }}" rel="sponsored nofollow" class="reveal-code" onclick="openPopup('{{coupon.code}}', '{{coupon.title}}', '{{coupon.featured_image.file.url}}', '{{page.url}}', '{{coupon.body}}', {{page.id}})">Reveal Coupon</a>
+              {% elif coupon.store_link.specific.logo %}
+              <a href="{{ coupon.external_link }}" rel="sponsored nofollow" class="reveal-code" onclick="openPopup('{{coupon.code}}', '{{coupon.title}}', '{{page.logo.file.url}}', '{{page.url}}', '{{coupon.body}}', {{page.id}})">Reveal Coupon</a>
+              {% endif %}
             </div>
           </div>
           <!-- <div class="coupon-code">
@@ -84,7 +90,7 @@
 
     function openPopup(couponCode, couponTitle, imageUrl, currentUrl, couponBody, storeId) {
 
-      var popupUrl = "/store/" + storeId + "/?code=" + encodeURIComponent(couponCode) + "&title=" + encodeURIComponent(couponTitle) + "&image=" + "&body=" + encodeURIComponent(couponBody) + "&image="+ encodeURIComponent(imageUrl);
+      var popupUrl = "/store/" + storeId + "/?code=" + encodeURIComponent(couponCode) + "&title=" + encodeURIComponent(couponTitle) + "&image=" + encodeURIComponent(imageUrl) + "&body=" + encodeURIComponent(couponBody) + "&image="+ encodeURIComponent(imageUrl);
       window.open(popupUrl, "_blank");
     }
 
