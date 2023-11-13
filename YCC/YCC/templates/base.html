@@ -46,18 +46,32 @@
     <header>
         <nav>
             <ul>
+                <li class="logo_banner"><a href="/"><img src="/media/logo/logo_green_coupon_codes-removebg-preview.png"></a></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li><form action="{% url 'search' %}" method="get" >
+                    <input type="text" placeholder="Search for brands…" name="query"{% if search_query %} value="{{ search_query }}"{% endif %}>
+                    <input type="submit" value="Search" class="button">
+                </form></li>
+                <li></li>
+                <li></li>
                 <li><a href="/">Home</a></li>
                 <li><a href="/all-stores/">Stores</a></li>
-                <li><a href="/all-coupons/">Coupons</a></li>
+                <li><a href="/blog/">Blog</a></li>
                 <!-- Add more navigation links as needed -->
             </ul>
         </nav>
     </header>
-    <!-- <div class="banner">
-        <div class="banner-image-container">
-          <img src="/media/images/hero-bg.png" alt="CBDealsavers">
+
+
+        {% if page.url == "/" %}
+        <div class="banner">
+            <div class="banner-image-container">
+            <img src="/media/images/hero-bg.png" alt="CBDealsavers">
+            </div>
         </div>
-    </div> -->
+        {% endif %}
 
     <!-- Main Content -->
     <main>
@@ -73,7 +87,7 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; {{ year }} Your Website Name. All rights reserved.</p>
+        <p>&copy; {{ year }} Green Coupon Codes. All rights reserved.</p>
     </footer>
 
 </body>

@@ -262,16 +262,21 @@ class BlogPostPage(Page):
         ]))
     ], blank=True, use_json_field=True)
 
-    search_fields = Page.search_fields + [
-        index.SearchField('intro'),
-        index.SearchField('body'),
-    ]
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="Upload the store logo image."
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel('intro'),
         FieldPanel('body'),
         FieldPanel('index_page'),
         FieldPanel('accordion'),
+        FieldPanel('image')
     ]
 
     template = "blog/blog_post_page.html"
@@ -300,6 +305,8 @@ class StandardPage(Page):
     ]
 
     template = "pages/page.html"
+
+    
 
 # class CustomSitemap(Sitemap):
 #     changefreq = "weekly"

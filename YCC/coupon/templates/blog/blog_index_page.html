@@ -2,14 +2,21 @@
 
 {% block content %}
   <h1>{{ page.title }}</h1>
-  <div class="blog-post-list">
-    {% for blog_post in page.get_children %}
-      <div class="blog-post">
-        <h2><a href="{{ blog_post.url }}">{{ blog_post.title }}</a></h2>
-        <p>{{ blog_post.intro }}</p>
+  <p>{{ page.intro }}</p>
+
+  <div class="coupon-list">
+    {% for blog in page.get_children %}
+      <div class="store-item">
+        <div class="store-image">
+          <a href="{{ blog.url }}"><img src="{{ blog.specific.image.file.url }}" alt="{{ blog.title }}"></a>
+          <!-- Note: Use store.specific to access the specific Store page fields -->
+        </div>
+        <div>
+          <h2><a class="store_spec" href="{{ blog.url }}">{{ blog.title }} Coupon Codes</a></h2>
+          <p>{{ blog.specific.description|safe }}</p>
+        </div>
       </div>
     {% endfor %}
   </div>
 
-  
 {% endblock %}

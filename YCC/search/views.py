@@ -5,13 +5,16 @@ from wagtail.models import Page
 from wagtail.search.models import Query
 
 
+from django.db.models import Q
+from coupon.models import Store
+
 def search(request):
     search_query = request.GET.get("query", None)
     page = request.GET.get("page", 1)
 
-    # Search
+    # Search only within Store models
     if search_query:
-        search_results = Page.objects.live().search(search_query)
+        search_results = Store.objects.live().search(search_query)
         query = Query.get(search_query)
 
         # Record hit
@@ -36,3 +39,4 @@ def search(request):
             "search_results": search_results,
         },
     )
+

@@ -153,7 +153,7 @@ MEDIA_URL = "/media/"
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = "CBDealSaver"
+WAGTAIL_SITE_NAME = "Green Coupon Codes"
 
 # Search
 # https://docs.wagtail.org/en/stable/topics/search/backends.html

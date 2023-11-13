@@ -4,8 +4,19 @@
   <h1>{{ page.title }}</h1>
   <p>{{ page.intro }}</p>
 
-  {% for store in page.get_children %}
-    <h2><a href="{{ store.url }}">{{ store.title }}</a></h2>
-    <p>Name: {{ store.name }}</p>
-  {% endfor %}
+  <div class="coupon-list">
+    {% for store in page.get_children %}
+      <div class="store-item">
+        <div class="store-image">
+          <a href="{{ store.url }}"><img src="{{ store.specific.logo.file.url }}" alt="{{ store.title }}"></a>
+          <!-- Note: Use store.specific to access the specific Store page fields -->
+        </div>
+        <div>
+          <h2><a class="store_spec" href="{{ store.url }}">{{ store.title }} Coupon Codes</a></h2>
+          <p>{{ store.specific.description|safe }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
 {% endblock %}

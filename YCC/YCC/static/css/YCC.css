@@ -33,8 +33,11 @@ nav {
 }
 
 header nav ul {
-    list-style-type: none;
-    display: flex;
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
 }
 
 header nav ul li {
@@ -42,8 +45,23 @@ header nav ul li {
 }
 
 header nav ul li a {
-    text-decoration: none;
+    text-decoration: none!important;
     color: #333;
+}
+
+.logo_banner img {
+  width: 200px;
+}
+
+input[type="text"] {
+  border-radius: 5px;
+  padding: 5px;
+  border: none;
+}
+
+input[type="text"]:focus-visible {
+  border: none;
+  outline: none;
 }
 
 /* Style the main content area */
@@ -73,18 +91,20 @@ a:hover {
 button,
 input[type="submit"],
 input[type="reset"] {
-    background-color: #0066cc;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
+  background-color: #008080;
+  color: #fff;
+  border: none;
+  padding: 5px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: -13px;
+  border-radius: 0 5px 5px 0px;
 }
 
 button:hover,
 input[type="submit"]:hover,
 input[type="reset"]:hover {
-    background-color: #004499;
+    background-color: #FFA500;
 }
 
 /* Add more specific styling for conversion optimization */
@@ -116,11 +136,11 @@ header nav ul li a {
 }
 
 .banner img {
-  width: 102%;
-    height: auto;
-    position: absolute;
-    bottom: -355px;
-    margin-left: -2px;
+  width: 100%;
+  height: auto;
+  position: absolute;
+  bottom: -355px;
+  margin-left: -2px;
 }
 
 .banner-content {
@@ -147,17 +167,6 @@ header nav ul li a {
 }
 
 
-button,
-input[type="submit"],
-input[type="reset"] {
-    background-color: #004499;
-}
-
-button:hover,
-input[type="submit"]:hover,
-input[type="reset"]:hover {
-    background-color: #003366;
-}
 
 /* Optimize the layout for mobile devices */
 /* Add media queries and adjust the styles as needed */
@@ -232,10 +241,26 @@ input[type="reset"]:hover {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px #081b34;
     transition: box-shadow 0.3s ease-in-out;
     min-height: 310px;
-  }
+    border-radius: 5px;
+}
+
+.store-item {
+  position: relative;
+  width: calc(28% );
+  border: 1px solid #ccc;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 2px 4px #081b34;
+  transition: box-shadow 0.3s ease-in-out;
+  min-height: 150px;
+  border-radius: 5px;
+}
   
   @media (max-width: 767px) {
     .coupon-item {
@@ -244,23 +269,35 @@ input[type="reset"]:hover {
   }
   .coupon-image {
     height: 40%;
-}
+  }
+
+  .store-image img{ 
+    max-width: 100%;
+    height: auto;
+    max-height: 80%;
+    margin-bottom: 10px;
+  }
+  a.store_spec {
+  text-decoration: none;
+  color:#008080;
+  }
   .coupon-image img {
     max-width: 100%;
-    height: 100%;
+    height: auto;
+    max-height: 80%;
     margin-bottom: 10px;
 }
   
   .coupon-info h3 {
     font-size: 18px;
     margin-top: 0;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
     
   }
   
   .coupon-info p {
     font-size: 14px;
-    margin: 0 0 10px 0;
+    margin: 0 0 15px 0;
   }
   
   .coupon-code {
@@ -269,7 +306,7 @@ input[type="reset"]:hover {
   
   .coupon-info {
     position: absolute;
-    bottom: 25px;
+    bottom: 13%;
     width: 85%;
 }
   .reveal-code {
@@ -493,4 +530,29 @@ button#go-to-website-btn:hover {
   flex-direction: column;
   align-content: center;
   text-align: center;
+}
+
+a.visit_link {
+  padding: 10px;
+  background: #008080;
+  width: 150px;
+  margin: 10px auto;
+  text-decoration: none;
+  color: white;
+}
+
+a.visit_link:hover {
+  background: #FFA500;
+}
+
+.intro_store h1 {
+  font-size: 30px;
+}
+
+p.intro_text {
+  color: #999;
+  margin-bottom: 20px;
+  width: 75%;
+  margin-right: auto;
+  margin-left: auto;
 }

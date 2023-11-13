@@ -9,14 +9,14 @@
   
     <div class="intro_store">
       <h1>{{ store.title }} Coupon Codes - <span id="current-month"></span> <span id="current-year"></span></h1>
-      <h2>Category: {{ store.category.name }}</h2>
-      <p> {{store.description|safe}}</p>
-      <p>Name: {{ store.name }}</p>
-      <p>Website: <a href="{{ store.external_link }}">{{ store.external_link }}</a></p>
+      <!-- <h2>Category: {{ store.category.name }}</h2> -->
+      <p class="intro_text"> Green Coupon Codes offer you the latest coupon codes. Browse and find verified {{store.title }} discount. When you buy through our links, we may earn a commission.</p>
+      <!-- <p>Name: {{ store.name }}</p>
+      <p>Website: <a href="{{ store.external_link }}">{{ store.external_link }}</a></p> -->
+      <!-- <a class="visit_link" href="{{ store.external_link }}">Visit Website</a> -->
 
     </div>
 
-    <h2>Linked Coupons</h2>
     <div class="coupon-list">
       {% for coupon in store.linked_coupons %}
       <div class="coupon-item">
@@ -30,14 +30,14 @@
         <div class="coupon-info">
           <h3 class="first-letter">{{ coupon.title }}</h3>
           <!-- <p>Date: {{ coupon.date }}</p> -->
-          <p>Intro: {{ coupon.intro }}</p>
+          <p><b>{{ store.title }} Coupon Code:</b> {{ coupon.intro }}</p>
           <div class="coupon onhover">
             <div class="code">{{ coupon.code }}</div>
             <div class="mask">
             {% if coupon.featured_image %}
-            <a href="{{ coupon.external_link }}" rel="sponsored nofollow" class="reveal-code" onclick="openPopup('{{ coupon.code }}', '{{coupon.title}}' , '{{coupon.featured_image.file.url}}', '{{ page.get_parent.url }}', '{{coupon.body}}', {{ store.id }});">Reveal Coupon</a>
+            <a href="{{ coupon.external_link }}" rel="sponsored nofollow" class="reveal-code" onclick="openPopup('{{ coupon.code }}', '{{coupon.title}}' , '{{coupon.featured_image.file.url}}', '{{ page.get_parent.url }}', '{{coupon.intro}}', {{ store.id }});">Reveal Coupon</a>
             {% elif coupon.store_link.specific.logo %}  
-            <a href="{{ coupon.external_link }}" rel="sponsored nofollow" class="reveal-code" onclick="openPopup('{{ coupon.code }}', '{{coupon.title}}' , '{{store.logo.file.url}}', '{{ page.get_parent.url }}', '{{coupon.body}}', {{ store.id }});">Reveal Coupon</a>
+            <a href="{{ coupon.external_link }}" rel="sponsored nofollow" class="reveal-code" onclick="openPopup('{{ coupon.code }}', '{{coupon.title}}' , '{{store.logo.file.url}}', '{{ page.get_parent.url }}', '{{coupon.intro}}', {{ store.id }});">Reveal Coupon</a>
             {% endif %}
           </div>
           </div>
