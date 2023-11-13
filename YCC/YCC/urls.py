@@ -10,11 +10,11 @@ from search import views as search_views
 
 from coupon.views import coupon_popup_view
 from wagtail.contrib.sitemaps.views import sitemap
-# from django.contrib.sitemaps.views import sitemap
-# from coupon.models import CustomSitemap
+# from coupon.sitemap import CustomSitemap
 
 # sitemaps = {
-#     'custom': CustomSitemap,
+#     'store': StoreSitemap,
+#     'blog': BlogPostSitemap,
 # }
 
 urlpatterns = [

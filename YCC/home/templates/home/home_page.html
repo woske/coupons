@@ -17,8 +17,8 @@
                     <!-- Note: Use store.specific to access the specific Store page fields -->
                 </div>
                 <div>
-                    <h2><a class="store_spec" href="{{ store.url }}">{{ store.title }} Coupon Codes</a></h2>
-                    <p>{{ store.specific.description|safe }}</p>
+                    <h2><a class="store_spec" href="{{ store.url }}">{{ store.title|title }} Coupon Codes</a></h2>
+                    <p>{{ store.specific.description|safe|title }}</p>
                 </div>
             </div>
           {% endfor %}
@@ -38,8 +38,8 @@
                   <!-- Note: Use store.specific to access the specific Store page fields -->
               </div>
               <div>
-                  <h2><a class="store_spec" href="{{ store.url }}">{{ store.title }} Coupon Codes</a></h2>
-                  <p>{{ store.specific.description|safe }}</p>
+                  <h2><a class="store_spec" href="{{ store.url }}">{{ store.title|title }} Coupon Codes</a></h2>
+                  <p>{{ store.specific.description|safe|title }}</p>
               </div>
           </div>
         {% endfor %}

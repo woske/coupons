@@ -16,6 +16,8 @@ from wagtail.snippets.models import register_snippet
 
 
 
+
+
 class CouponIndexPage(Page):
     intro = RichTextField(blank=True)
     index_page = models.BooleanField(default=True, help_text="Check this to allow indexing of the page.")
@@ -26,6 +28,9 @@ class CouponIndexPage(Page):
     ]
 
     template = "coupon/coupon_index_page.html"
+
+    def get_sitemap_urls(self, request=None):
+        return []
 
 
 class CouponPageTag(TaggedItemBase):
@@ -146,6 +151,17 @@ class Store(Page):
     def __str__(self):
         return self.name
     
+    def get_sitemap_urls(self, request=None):
+            # Check if index_page is True
+            if self.index_page:
+                # Include the page in the sitemap
+                sitemap = super().get_sitemap_urls(request)
+            else:
+                # Exclude the page from the sitemap
+                sitemap = []
+            return sitemap
+
+    
     @property
     def linked_coupons(self):
         return Coupon.objects.live().public().filter(store_link=self)
@@ -236,6 +252,10 @@ class Coupon(Page):
 
                     self.external_link = self.store_link.specific.external_link
             super().save(*args, **kwargs)
+    
+    def get_sitemap_urls(self, request=None):
+        return []
+
 
 
     
@@ -281,6 +301,16 @@ class BlogPostPage(Page):
 
     template = "blog/blog_post_page.html"
 
+    def get_sitemap_urls(self, request=None):
+        # Check if index_page is True
+        if self.index_page:
+            # Include the page in the sitemap
+            sitemap = super().get_sitemap_urls(request)
+        else:
+            # Exclude the page from the sitemap
+            sitemap = []
+        return sitemap
+
 class StandardPage(Page):
     intro = RichTextField(blank=True)
     body = RichTextField()
@@ -305,6 +335,16 @@ class StandardPage(Page):
     ]
 
     template = "pages/page.html"
+
+    def get_sitemap_urls(self, request=None):
+        # Check if index_page is True
+        if self.index_page:
+            # Include the page in the sitemap
+            sitemap = super().get_sitemap_urls(request)
+        else:
+            # Exclude the page from the sitemap
+            sitemap = []
+        return sitemap
 
     
 
