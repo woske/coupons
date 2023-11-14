@@ -347,23 +347,3 @@ class StandardPage(Page):
         return sitemap
 
     
-
-# class CustomSitemap(Sitemap):
-#     changefreq = "weekly"
-#     priority = 0.5
-
-#     def items(self):
-#         # Define the pages you want to include in the sitemap based on the index_page field
-#         pages = []
-
-#         # Add pages from your models with the index_page field
-#         pages += Coupon.objects.filter(index_page=True)
-#         pages += Store.objects.filter(index_page=True)
-#         pages += BlogPostPage.objects.filter(index_page=True)
-#         pages += StandardPage.objects.filter(index_page=True)
-
-#         return pages
-
-#     def lastmod(self, obj):
-#         # Define how to get the last modification date for each page (if applicable)
-#         return obj.latest_revision_created_at

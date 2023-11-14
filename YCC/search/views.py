@@ -14,7 +14,9 @@ def search(request):
 
     # Search only within Store models
     if search_query:
-        search_results = Store.objects.live().search(search_query)
+        search_results = Store.objects.live().filter(
+            Q(name__icontains=search_query)
+        )
         query = Query.get(search_query)
 
         # Record hit
@@ -39,4 +41,3 @@ def search(request):
             "search_results": search_results,
         },
     )
-
